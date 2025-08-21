@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Work Studio - Digital Solutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+   
+   :root {
+  /* ألوان الهوية من اللوغو */
+  --primary: #3AA5B0;       /* الفيروزي الرئيسي (لون حرف A) */
+  --primary-dark: #296C77;  /* فيروزي أغمق للهوفر والحدود */
+  --primary-light: #82CED5; /* فيروزي فاتح للتظليل والتوهج */
+
+  --secondary: #FFFFFF;     /* الأبيض (لون حرف C) */
+  --accent: #B6B6B7;        /* رمادي ناعم من هالة حرف C */
+
+  /* درجات داكنة مستوحاة من الخلفية */
+  --dark: #12181A;          /* نص داكن/عناوين */
+  --dark-light: #2A3336;    /* عناصر ثانوية داكنة */
+
+  /* محايد */
+  --gray: #6B7F85;
+  --gray-light: #DCE3E6;
+  --white: #FFFFFF;
+  --background: #F8FAFC;    /* أبقيتها فاتحة للموقع الحالي (للقالب الداكن انظر أدناه) */
+
+  /* تدرجات متناسقة مع الهوية */
+  --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #9EE0E7 100%);
+  --gradient-dark: linear-gradient(135deg, #0C1213 0%, #000000 100%);
+  --gradient-accent: linear-gradient(135deg, var(--primary-light) 0%, #EAF8FA 100%);
+
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+  --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
+  --border-radius: 12px;
+  --border-radius-lg: 20px;
+}
+
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 100%;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--dark);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      z-index: 1000;
+      padding: 12px 0;
+      transition: var(--transition);
+      
+    }
+
+    .navbar.scrolled {
+      padding: 8px 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--dark);
+      z-index: 1001;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .logo i {
+      margin-right: 8px;
+      color: var(--primary);
+    }
+
+    
+    .logo-img {
+      height: 35px;
+      transition: var(--transition);
+    }
+
+    .logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin-left: 10px;
+      color: var(--dark);
+    }
+
+    .logo-text span {
+      color: var(--primary);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 30px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 130px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      opacity: 0.15;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-xl);
+      transform: perspective(800px) rotateY(-10deg);
+      transition: var(--transition);
+    }
+
+    .hero-image img:hover {
+      transform: perspective(800px) rotateY(0);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .hero-title span {
+      color: var(--primary);
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 35px;
+      max-width: 90%;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--dark);
+      border: 2px solid var(--gray-light);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Services Section */
+    .services {
+      background: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 0;
+      background: var(--gradient-primary);
+      transition: var(--transition);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+
+    .service-card:hover::before {
+      height: 100%;
+    }
+
+    .service-icon {
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient-primary);
+      color: white;
+      font-size: 1.6rem;
+      border-radius: 18px;
+      margin: 0 auto 20px;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon {
+      transform: rotateY(180deg);
+    }
+
+    .service-title {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+
+    .service-description {
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .service-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .service-link:hover {
+      gap: 10px;
+    }
+
+    /* Projects Section */
+    .projects {
+      background: var(--background);
+    }
+
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 45px;
+    }
+
+    .projects-view-all {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .projects-view-all:hover {
+      gap: 12px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-image {
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+
+    .project-content {
+      padding: 22px;
+    }
+
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .project-category {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .project-description {
+      color: var(--gray);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .project-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .project-link:hover {
+      gap: 12px;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--gradient-dark);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cta-description {
+      font-size: 1.1rem;
+      margin-bottom: 35px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--dark);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 70px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 35px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand .logo {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .footer-description {
+      color: var(--gray-light);
+      margin-bottom: 25px;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-social a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-title {
+      font-size: 1.2rem;
+      margin-bottom: 18px;
+      color: white;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: var(--transition);
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      opacity: 1;
+      padding-left: 5px;
+    }
+
+    .footer-contact {
+      list-style: none;
+    }
+
+    .footer-contact li {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gray-light);
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    .footer-contact li i {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--gray-light);
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 55px;
+      height: 55px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: var(--shadow-lg);
+      z-index: 100;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+      }
+      
+      .hero-text, .hero-image {
+        flex: none;
+        width: 100%;
+      }
+      
+      .hero-image {
+        justify-content: center;
+        margin-top: 40px;
+      }
+      
+      .hero-description {
+        max-width: 100%;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .projects-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .projects-view-all {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        background: white;
+        width: 80%;
+        height: 100vh;
+        flex-direction: column;
+        gap: 0;
+        padding: 100px 30px 30px;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        overflow-y: auto;
+      }
+      
+      .nav-menu.active {
+        left: 0;
+      }
+      
+      .nav-link {
+        display: block;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--gray-light);
+        font-size: 1.1rem;
+      }
+      
+      .nav-link::after {
+        display: none;
+      }
+      
+      .nav-cta {
+        margin: 20px 0 0;
+        text-align: center;
+        display: block;
+        padding: 12px 20px;
+      }
+      
+      .nav-toggle {
+        display: block;
+      }
+      
+      .hero {
+        padding: 110px 0 60px;
+      }
+      
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .hero-description {
+        font-size: 1rem;
+      }
+      
+      .section {
+        padding: 70px 0;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1rem;
+      }
+      
+      .services-grid, .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .service-card, .project-card {
+        padding: 30px 20px;
+      }
+      
+      .cta-title {
+        font-size: 2rem;
+      }
+      
+      .cta-description {
+        font-size: 1rem;
+      }
+      
+      .logo-img {
+        height: 32px;
+      }
+      
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      
+      .btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        padding: 0 15px;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+      
+      .hero-title {
+        font-size: 1.9rem;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .logo-img {
+        height: 30px;
+      }
+      
+      .logo-text {
+        font-size: 1.1rem;
+        margin-left: 8px;
+      }
+      
+      .hero-badge {
+        font-size: 0.8rem;
+      }
+      
+      .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero-title {
+        font-size: 1.7rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+      
+      .cta-title {
+        font-size: 1.7rem;
+      }
+      
+      .logo-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="appworkstudiologo.png" alt="App Work Studio" class="logo-img">
+        <div class="logo-text">App Work <span>Studio</span></div>
+      </a>
+      
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link nav-cta">Get Started</a></li>
+      </ul>
+      
+      <button class="nav-toggle" id="navToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="hero-badge">Digital Innovation Studio</span>
+          <h1 class="hero-title">We Create <span>Digital Experiences</span> That People Love</h1>
+          <p class="hero-description">We design and develop mobile apps, web platforms, and digital solutions that help businesses grow and succeed in the modern world.</p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">
+              <i class="fas fa-rocket"></i> View Our Work
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <i class="fas fa-calendar"></i> Book a Call
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="App Development">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">We offer a wide range of digital services to help your business grow and succeed in the digital age.</p>
+      </div>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="service-title">Mobile App Development</h3>
+          <p class="service-description">We create native and cross-platform mobile applications for iOS and Android with stunning UI/UX.</p>
+          <a href="#" class="service-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3 class="service-title">Web Development</h3>
+          <p class="service-description">Responsive websites and web applications built with the latest technologies and frameworks.</p>
+          <a href="#" class="service-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h3 class="service-title">UI/UX Design</h3>
+          <p class="service-description">User-centered designs that enhance usability, engagement, and conversion rates.</p>
+          <a href="#" class="service-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <h3 class="service-title">Game Development</h3>
+          <p class="service-description">Immersive 2D and 3D gaming experiences across multiple platforms and devices.</p>
+          <a href="#" class="service-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="service-title">Digital Marketing</h3>
+          <p class="service-description">Data-driven strategies to increase your online visibility and drive growth.</p>
+          <a href="#" class="service-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <h3 class="service-title">Cloud Solutions</h3>
+          <p class="service-description">Scalable cloud infrastructure and services to support your business growth.</p>
+          <a href="#" class="service-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects section">
+    <div class="container">
+      <div class="projects-header">
+        <div class="section-header" style="text-align: left; margin: 0;">
+          <h2 class="section-title">Our Projects</h2>
+          <p class="section-subtitle">Check out some of our recent work that showcases our expertise and creativity.</p>
+        </div>
+        <a href="#" class="projects-view-all">
+          View all projects <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project 1">
+          </div>
+          <div class="project-content">
+            <span class="project-category">Mobile App</span>
+            <h3 class="project-title">EcoTrack - Sustainability App</h3>
+            <p class="project-description">An app that helps users track and reduce their carbon footprint with personalized recommendations.</p>
+            <a href="#" class="project-link">
+              View case study <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project 2">
+          </div>
+          <div class="project-content">
+            <span class="project-category">Web App</span>
+            <h3 class="project-title">FinTrack - Financial Dashboard</h3>
+            <p class="project-description">A comprehensive financial dashboard for businesses to track expenses, revenue, and financial health.</p>
+            <a href="#" class="project-link">
+              View case study <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project 3">
+          </div>
+          <div class="project-content">
+            <span class="project-category">UI/UX Design</span>
+            <h3 class="project-title">FoodDelivery App Design</h3>
+            <p class="project-description">A modern and intuitive food delivery app interface designed for seamless user experience.</p>
+            <a href="#" class="project-link">
+              View case study <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to start your project?</h2>
+        <p class="cta-description">Let's discuss how we can help you achieve your business goals with our digital solutions.</p>
+        <a href="#" class="btn btn-white">
+          <i class="fas fa-paper-plane"></i> Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <img src="appworkstudiologo.png" alt="App Work Studio" class="logo-img">
+            <div class="logo-text">App Work <span>Studio</span></div>
+          </a>
+          <p class="footer-description">We create digital experiences that help businesses grow and succeed in the modern world.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3 class="footer-title">Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h3 class="footer-title">Services</h3>
+          <ul class="footer-links">
+            <li><a href="#">Mobile App Development</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">Game Development</a></li>
+            <li><a href="#">Digital Marketing</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3 class="footer-title">Contact</h3>
+          <ul class="footer-contact">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Digital Street, Tech City</span>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <span>+1 (234) 567-890</span>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <span>hello@appworkstudio.com</span>
+            </li>
+            <li>
+              <i class="fas fa-clock"></i>
+              <span>Mon - Fri: 9AM - 6PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 App Work Studio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/1234567890" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navbar toggle
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('navMenu');
+      
+      navToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        navToggle.querySelector('i').classList.toggle('fa-bars');
+        navToggle.querySelector('i').classList.toggle('fa-times');
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+      
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('active');
+          navToggle.querySelector('i').classList.add('fa-bars');
+          navToggle.querySelector('i').classList.remove('fa-times');
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (navMenu.classList.contains('active') && 
+            !e.target.closest('.nav-menu') && 
+            !e.target.closest('.nav-toggle')) {
+          navMenu.classList.remove('active');
+          navToggle.querySelector('i').classList.add('fa-bars');
+          navToggle.querySelector('i').classList.remove('fa-times');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Touch event for smoother mobile experience
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+      
+      document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        // Swipe left to close menu
+        if (navMenu.classList.contains('active') && touchStartX - touchEndX > 50) {
+          navMenu.classList.remove('active');
+          navToggle.querySelector('i').classList.add('fa-bars');
+          navToggle.querySelector('i').classList.remove('fa-times');
+          document.body.style.overflow = '';
+        }
+      }, false);
+    });
+  </script>
+</body>
+</html>
